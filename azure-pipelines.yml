@@ -1,0 +1,92 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+trigger: #Trigger you expected branches 
+  branches:
+    include: #include all the brances 
+    - development
+    - Testing
+    - QA
+    - UAT
+    - Production
+
+
+stages:
+- stage:  development_Team #The Stage do you prefer
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/development') #If the change is from development branch the following job will be executed 
+  jobs: #Chose the prefer job
+  - deployment: DeployWeb
+    displayName: deploy Web App in Development Team
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'development' #Chose the prefer enviroment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Accion to development team
+          
+
+- stage: Testing_Team
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/Testing')  #If the change is from Testing branch the following job will be executed
+  jobs: #Chose the prefer job
+  - deployment: DeployWeb
+    displayName: deploy Web App in Testing Team
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'Testing' #Chose the prefer enviroment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Accion to Testing team
+
+- stage: QA_Team
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/QA')  #If the change is from QA branch the following job will be executed
+  jobs: #Chose the prefer job
+  - deployment: DeployWeb
+    displayName: deploy Web App in QA Team
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'QA' #Chose the prefer enviroment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Accion to QA team
+
+- stage: UAT_Team
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/UAT')  #If the change is from UAT branch the following job will be executed
+  jobs: #Chose the prefer job
+  - deployment: DeployWeb
+    displayName: deploy Web App in UAT Team
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'UAT' #Chose the prefer enviroment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Accion to UAT team
+
+- stage: Production_Team
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/Production')  #If the change is from Production branch the following job will be executed
+  jobs: #Chose the prefer job
+  - deployment: DeployWeb
+    displayName: deploy Web App in Production Team
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'Production' #Chose the prefer enviroment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Accion to Production team
